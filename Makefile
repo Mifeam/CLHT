@@ -116,6 +116,12 @@ GCC=gcc
 LIBS += 
 endif
 
+ifeq ($(UNAME), node-0.ming589-193965.advosuwmadison-pg0.wisc.cloudlab.us)
+    GCC=gcc
+    PLATFORM_NUMA = 0
+    PLATFORM = -DC220G5
+endif
+
 ifeq ($(UNAME), maglite)
 PLATFORM=-DSPARC
 GCC:=/opt/csw/bin/gcc
