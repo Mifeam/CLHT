@@ -110,7 +110,7 @@ clht_bucket_create_stats(clht_hashtable_t* h, int* resize)
   bucket_t* b = clht_bucket_create();
   if (IAF_U32(&h->num_expands) == h->num_expands_threshold)
     {
-      /* printf("      -- hit threshold (%u ~ %u)\n", h->num_expands, h->num_expands_threshold); */
+      printf("      -- hit threshold (%u ~ %u)\n", h->num_expands, h->num_expands_threshold); 
       *resize = 1;
     }
   return b;
@@ -231,6 +231,7 @@ clht_get(clht_hashtable_t* hashtable, clht_addr_t key)
 	{
 	  clht_val_t val = bucket->val[j];
 #ifdef __tile__
+    printf("__tile__\n");
 	  _mm_lfence();
 #endif
 	  if (bucket->key[j] == key) 
