@@ -213,16 +213,14 @@ extern "C" {
       8, 9, 10, 11, 12, 13, 14, 15, 
       16, 17, 18, 19, 20, 21, 22, 23, 
       24, 25, 26, 27, 28, 29, 30, 31, 
-      32, 33, 34, 35, 36, 37, 38, 39, 
-      40
+      32, 33, 34, 35, 36, 37, 38, 39
     };
   static uint8_t __attribute__ ((unused)) the_sockets[] = {
       0, 0, 0, 0, 0, 0, 0, 0, 
       0, 0, 1, 1, 1, 1, 1, 1, 
       1, 1, 1, 1, 0, 0, 0, 0, 
       0, 0, 0, 0, 0, 0, 1, 1, 
-      1, 1, 1, 1, 1, 1, 1, 1, 
-      1
+      1, 1, 1, 1, 1, 1, 1, 1
   };
 
 #elif defined(XEON)
@@ -323,7 +321,15 @@ extern "C" {
 #  else
     cpu_set_t mask;
     CPU_ZERO(&mask);
+    if(cpu < 10)
     CPU_SET(cpu, &mask);
+    else{
+      if(cpu < 30)
+      CPU_SET(10+cpu, &mask);
+      else
+      CPU_SET(cpu-20, &mask);
+    }
+    //printf("inner: %d\n", cpu);
     /* numa_set_preferred(get_cluster(cpu)); */
     pthread_t thread = pthread_self();
     if (pthread_setaffinity_np(thread, sizeof(cpu_set_t), &mask) != 0) {
